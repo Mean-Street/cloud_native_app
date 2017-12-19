@@ -450,7 +450,7 @@ Your development team will have to setup them with packstack: https://www.rdopro
 
 Lab ID | IP Server 1 | IP Server 2 | FIP DHCP start | FIP DHCP end |
 -------|-------------|-------------|----------------|--------------|
-Lab 1 | 10.11.51.138 | 10.11.51.139 | 10.11.54.10 | 10.11.54.29 |
+Lab 1 | 10.11.51.138 | 10.11.51.174| 10.11.54.10 | 10.11.54.29 |
 Lab 2 | 10.11.51.140 | 10.11.51.141 | 10.11.54.30 | 10.11.54.49 |
 Lab 3 | 10.11.51.142 | 10.11.51.143 | 10.11.54.50 | 10.11.54.69 |
 Lab 4 | 10.11.51.144 | 10.11.51.145 | 10.11.54.70 | 10.11.54.89 |
@@ -479,6 +479,7 @@ CONFIG_PROVISION_DEMO=n
 - If your deployment is successful, try to access your OpenStack via Horizon
 
 - Connect with the external network:  
+**Source your rc file.**  
 **Create network:** neutron net-create public --router:external --provider:network_type vlan  
 --provider:physical_network extnet --provider:segmentation_id 2232  
 **Create subnet:** neutron subnet-create --name public-subnet --enable_dhcp=False  
