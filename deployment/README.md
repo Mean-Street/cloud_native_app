@@ -4,7 +4,7 @@ On the bastion:
 
 ```
 sudo ./install_ansible.sh
-sudo cat ansible_hosts > /etc/ansible/hosts
+cat ansible_hosts | sudo tee /etc/ansible/hosts
 ```
 
 ## Install Jenkins
