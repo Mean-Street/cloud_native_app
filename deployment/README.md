@@ -3,7 +3,7 @@ On the bastion:
 ## Install Ansible
 
 ```
-sudo install_ansible.sh
+sudo ./install_ansible.sh
 sudo cat ansible_hosts > /etc/ansible/hosts
 ```
 
