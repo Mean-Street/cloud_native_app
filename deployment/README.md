@@ -10,5 +10,6 @@ sudo cat ansible_hosts > /etc/ansible/hosts
 ## Install Jenkins
 
 ```
+ansible-galaxy install geerlingguy.jenkins
 ansible-playbook playbooks/jenkins.yml
 ```
