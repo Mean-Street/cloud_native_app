@@ -11,5 +11,5 @@ cat ansible_hosts | sudo tee /etc/ansible/hosts
 
 ```
 ansible-galaxy install geerlingguy.jenkins
-ansible-playbook playbooks/jenkins.yml --connection=local
+sudo ansible-playbook playbooks/jenkins.yml --connection=local
 ```
