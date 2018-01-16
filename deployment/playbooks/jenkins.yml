@@ -3,7 +3,13 @@
     jenkins_hostname: localhost
     jenkins_http_port: 8080
     jenkins_plugins: ["github", "github-issues"]
+    pip_install_packages: ["jenkins-job-builder"]
+  tasks:
+    - name: jenkins_jobs_create
+      shell: jenkins-jobs --conf ../jenkins/jenkins_jobs.ini update ../jenkins/github.yml
+      become: true
   roles:
+    - role: geerlingguy.pip
     - role: geerlingguy.java
     - role: geerlingguy.jenkins
       become: true

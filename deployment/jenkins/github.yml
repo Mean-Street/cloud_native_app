@@ -1,6 +1,6 @@
 ---
 - job:
-    name: my_hello_world_job
+    name: github
     parameters:
       - string:
           name: Message
