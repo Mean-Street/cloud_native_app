@@ -2,6 +2,7 @@
   vars:
     jenkins_hostname: localhost
     jenkins_http_port: 8080
+    jenkins_plugins: ["github", "github-issues"]
   roles:
     - role: geerlingguy.java
     - role: geerlingguy.jenkins
