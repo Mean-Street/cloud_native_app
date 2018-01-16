@@ -1,4 +1,4 @@
-Cloud Native Application
+Cloud Nativ Application
 ========================
 
 This document purpose is to describe the Cloud Native Application training described below and which is in particular delivered to ENSIMAG IS students in 2017 and 2018.
