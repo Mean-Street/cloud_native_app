@@ -1,2 +1,5 @@
 [jenkins]
 localhost
+
+[openstack]
+10.11.51.143 ansible_user=root ansible_ssh_pass=TODO
