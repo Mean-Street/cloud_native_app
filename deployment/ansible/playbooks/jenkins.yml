@@ -6,7 +6,7 @@
     pip_install_packages: ["jenkins-job-builder"]
   tasks:
     - name: jenkins_jobs_create
-      shell: jenkins-jobs --conf ../jenkins/jenkins_jobs.ini update ../jenkins/github.yml
+      shell: jenkins-jobs --conf ../../jenkins/jenkins_jobs.ini update ../../jenkins/github.yml
       become: true
   roles:
     - role: geerlingguy.pip
