@@ -1,0 +1,39 @@
+# https://www.rdoproject.org/install/packstack/
+- hosts: openstack
+  vars:
+    CONTROLLER_HOST: 10.11.51.142
+    COMPUTE_HOSTS: 10.11.51.143
+    NETWORK_HOSTS: 10.11.51.142
+  tasks:
+  - name: set locale
+    shell: echo "LANG=en_US.utf-8" > /etc/environment; echo "LC_ALL=en_US.utf-8" >> /etc/environment
+
+  - name: install the RPM packages to set up the OpenStack repository
+    yum: name=centos-release-openstack-pike state=latest
+
+  - name: upgrade all packages
+    yum: name=* state=latest
+
+  - name: install packstack
+    yum: name=openstack-packstack state=latest
+
+  - name: gen packstack answer file
+    shell: packstack --gen-answer-file=ensimag-packstack.txt
+
+  - name: write packstack config
+    lineinfile:
+      path: ensimag-packstack.txt
+      regexp: '^{{ item.key }}='
+      line: '{{ item.key }}={{ item.value }}'
+    with_items:
+      - { key: 'CONFIG_NTP_SERVERS', value: '10.3.252.26'}
+      - { key: 'CONFIG_NEUTRON_ML2_TYPE_DRIVERS', value: 'vxlan,flat,vlan'}
+      - { key: 'CONFIG_NEUTRON_ML2_FLAT_NETWORKS', value: 'extnet'}
+      - { key: 'CONFIG_NEUTRON_ML2_VLAN_RANGES', value: 'extnet:2232:2232'}
+      - { key: 'CONFIG_NEUTRON_OVS_BRIDGE_IFACES', value: 'br-ex:eno1'}
+      - { key: 'CONFIG_NEUTRON_OVS_BRIDGES_COMPUTE', value: 'br-ex'}
+      - { key: 'CONFIG_PROVISION_DEMO', value: 'n'}
+      - { key: 'CONFIG_HEAT_INSTALL', value: 'y'}
+      - { key: 'CONFIG_CONTROLLER_HOST', value: '{{ CONTROLLER_HOST }}'}
+      - { key: 'CONFIG_COMPUTE_HOSTS', value: '{{ COMPUTE_HOSTS }}'}
+      - { key: 'CONFIG_NETWORK_HOSTS', value: '{{ NETWORK_HOSTS }}'}
