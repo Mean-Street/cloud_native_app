@@ -38,7 +38,7 @@ resources:
   key-pair:
     type: OS::Nova::KeyPair
     properties:
-      name: ssh_orchestration_key
+      name: ssh_orchetration_key
       save_private_key: True
 
   # Creation of a security group
@@ -55,9 +55,9 @@ resources:
 
   # Creation of a first instance with its floating ip
   floating_ip_1:
-    type: OS::Nova::FloatingIP
+    type: OS::Neutron::FloatingIP
     properties:
-      pool: public          # public network already created
+      floating_network: public         # public network already created
 
   instance_1:
     type: OS::Nova::Server
@@ -92,6 +92,10 @@ resources:
       server_id: { get_resource: instance_1 }
 
 outputs:
+  server1_public_ip:
+    description: Floating IP associated to instance_1
+    value: 
+      get_attr: [floating_ip_1, floating_ip_address]
   ssh_key:
     description: SSH Private Key
     value:
