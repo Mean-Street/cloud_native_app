@@ -19,4 +19,5 @@ sudo ./install_jenkins.sh
 
 ```
 sudo ./install_openstack.sh
+sudo ./run_packstack.sh
 ```
