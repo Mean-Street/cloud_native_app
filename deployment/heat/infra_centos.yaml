@@ -63,7 +63,7 @@ resources:
     type: OS::Nova::Server
     properties:
       name: "test"
-      image: "Ubuntu"     # image uploaded beforehand
+      image: "CentOS_7"     # image uploaded beforehand
       flavor: m1.small
       key_name: { get_resource: key-pair }
       security_groups:
@@ -73,7 +73,15 @@ resources:
         - network: { get_resource: private_network }
       user_data: |
         #!/bin/sh
-        echo "test" > /home/ubuntu/file.txt
+        sudo sh -c 'echo "nameserver 8.8.8.8" > /etc/resolv.conf'
+        sudo yum -y update
+        sudo yum -y install git docker
+        sudo easy_install pip
+        sudo pip install docker-compose
+        sudo dockerd &
+        git clone https://github.com/Mean-Street/cloud_native_app /home/centos/cloud_native_app
+        sudo ln -s /usr/bin/docker-current /usr/bin/docker-runc
+        sudo docker-compose -f cloud_native_app/docker-compose.yml up
       user_data_format: RAW
 
   association_1:
