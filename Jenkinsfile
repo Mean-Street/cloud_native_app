@@ -3,7 +3,7 @@ pipeline {
 	stages {
 		stage('Test') {
 			steps {
-				touch /tmp/JENKINS_WORKS
+				sh 'touch /tmp/JENKINS_WORKS'
 			}
 		}
 	}
