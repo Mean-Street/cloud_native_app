@@ -1,13 +1,23 @@
 pipeline {
 	agent any
-	stages {
-		stage('Test') {
-			steps {
-				sh 'touch /tmp/JENKINS_WORKS'
+		stages {
+			stage('Build') {
+				steps {
+					echo 'Building..'
+					sh 'touch /tmp/BUILDING'
+				}
+			}
+			stage('Test') {
+				steps {
+					echo 'Testing..'
+					sh 'touch /tmp/TESTING'
+				}
+			}
+			stage('Deploy') {
+				steps {
+					echo 'Deploying....'
+					sh 'touch /tmp/DEPLOYING'
+				}
 			}
 		}
-	}
 }
-
-
-	
