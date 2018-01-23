@@ -1,0 +1,103 @@
+heat_template_version: 2013-05-23
+description: Template to deploy a test stack
+
+# declaration of template resources
+resources:
+  # Creation of a private network to host services
+  private_network:
+    type: OS::Neutron::Net
+    properties:
+      name: private_network
+
+  # Creation of a subnet network on the private network
+  private_subnet:
+    type: OS::Neutron::Subnet
+    properties:
+      network_id: { get_resource: private_network }
+      ip_version: 4
+      cidr: "192.168.0.0/24"
+      enable_dhcp: True
+      allocation_pools:
+        - start: "192.168.0.10"
+          end: "192.168.0.250"
+
+  # Creation of a bridge router between the public and private network
+  router:
+    type: OS::Neutron::Router
+    properties:
+      external_gateway_info: { network: public }    # public network already created
+
+  # Creation of an interface between the router and the private network
+  router-interface:
+    type: OS::Neutron::RouterInterface
+    properties:
+      router_id: { get_resource: router }
+      subnet: { get_resource: private_subnet }
+
+  # Creation of a key-pair
+  key-pair:
+    type: OS::Nova::KeyPair
+    properties:
+      name: ssh_orchetration_key
+      save_private_key: True
+
+  # Creation of a security group
+  security-group:
+    type: OS::Neutron::SecurityGroup
+    properties:
+      rules:
+        - protocol: icmp
+          remote_ip_prefix: 0.0.0.0/0
+        - protocol: tcp
+          remote_ip_prefix: 0.0.0.0/0
+          port_range_min: 22
+          port_range_max: 22
+
+  # Creation of a first instance with its floating ip
+  floating_ip_1:
+    type: OS::Neutron::FloatingIP
+    properties:
+      floating_network: public         # public network already created
+
+  instance_1:
+    type: OS::Nova::Server
+    properties:
+      name: "test"
+      image: "CentOS_7"     # image uploaded beforehand
+      flavor: m1.small
+      key_name: { get_resource: key-pair }
+      security_groups:
+        - default
+        - { get_resource: security-group }
+      networks:
+        - network: { get_resource: private_network }
+      user_data: |
+        #!/bin/sh
+        sudo sh -c 'echo "nameserver 8.8.8.8" > /etc/resolv.conf'
+        sudo yum -y update
+        sudo yum install -y yum-utils device-mapper-persistent-data lvm2
+        sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+        sudo yum -y install git docker-ce
+        sudo easy_install pip
+        sudo pip install docker-compose
+        sudo systemctl start docker
+        git clone https://github.com/Mean-Street/cloud_native_app /home/centos/cloud_native_app
+        sudo ln -s /usr/bin/docker-current /usr/bin/docker-runc
+        sudo docker-compose -f cloud_native_app/docker-compose.yml up
+      user_data_format: RAW
+
+  association_1:
+    type: OS::Nova::FloatingIPAssociation
+    properties:
+      floating_ip: { get_resource: floating_ip_1 }
+      server_id: { get_resource: instance_1 }
+
+outputs:
+  server1_public_ip:
+    description: Floating IP associated to instance_1
+    value: 
+      get_attr: [floating_ip_1, floating_ip_address]
+  ssh_key:
+    description: SSH Private Key
+    value:
+      get_attr: [key-pair, private_key]

@@ -63,7 +63,7 @@ resources:
     type: OS::Nova::Server
     properties:
       name: "test"
-      image: "CentOS_7"     # image uploaded beforehand
+      image: "Ubuntu"     # image uploaded beforehand
       flavor: m1.small
       key_name: { get_resource: key-pair }
       security_groups:
@@ -73,17 +73,15 @@ resources:
         - network: { get_resource: private_network }
       user_data: |
         #!/bin/sh
-        echo "test" > /home/centos/file.txt
         sudo sh -c 'echo "nameserver 8.8.8.8" > /etc/resolv.conf'
-        sudo yum -y update
-        sudo yum install -y yum-utils device-mapper-persistent-data lvm2
-        sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
-        sudo yum -y install git docker-ce
-        sudo easy_install pip
+        sudo sh -c 'echo "LANG=en_US.utf-8" > /etc/environment'
+        sudo sh -c 'echo "LC_ALL=en_US.utf-8" >> /etc/environment'
+        sudo apt-get -y update
+        sudo apt-get -y install git docker.io python-pip
+        sudo pip install --upgrade pip
         sudo pip install docker-compose
         sudo systemctl start docker
-        git clone https://github.com/Mean-Street/cloud_native_app /home/centos/cloud_native_app
-        sudo ln -s /usr/bin/docker-current /usr/bin/docker-runc
+        git clone https://github.com/Mean-Street/cloud_native_app /home/ubuntu/cloud_native_app
         sudo docker-compose -f cloud_native_app/docker-compose.yml up
       user_data_format: RAW
 
