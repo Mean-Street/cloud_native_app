@@ -60,9 +60,6 @@ else
 	echo "CONFIG_PROVISION_DEMO=n" >> ensimag-packstack.txt
 fi
 
-# Useful packages (used to be able to launch neutron command)
-sudo yum install -y python-openstackclient
-
 # Deploy packstack
 sudo packstack --answer-file=ensimag-packstack.txt
 
