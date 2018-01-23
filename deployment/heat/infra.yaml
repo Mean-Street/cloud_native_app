@@ -71,6 +71,10 @@ resources:
         - { get_resource: security-group }
       networks:
         - network: { get_resource: private_network }
+      user_data: |
+        #!/bin/sh
+        echo "test" > /home/centos/file.txt
+      user_data_format: RAW
 
   association_1:
     type: OS::Nova::FloatingIPAssociation
@@ -79,6 +83,9 @@ resources:
       server_id: { get_resource: instance_1 }
 
 outputs:
+  instance_ip:
+    description: The IP address of the deployed instance
+    value: { get_attr: [floating_ip_1, floating_ip_address] }
   ssh_key:
     description: SSH Private Key
     value:
