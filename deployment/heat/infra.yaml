@@ -63,7 +63,7 @@ resources:
     type: OS::Nova::Server
     properties:
       name: "test"
-      image: "CentOS_7"     # image uploaded beforehand
+      image: "Ubuntu"     # image uploaded beforehand
       flavor: m1.small
       key_name: { get_resource: key-pair }
       security_groups:
@@ -73,7 +73,7 @@ resources:
         - network: { get_resource: private_network }
       user_data: |
         #!/bin/sh
-        echo "test" > /home/centos/file.txt
+        echo "test" > /home/ubuntu/file.txt
       user_data_format: RAW
 
   association_1:
