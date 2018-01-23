@@ -74,6 +74,15 @@ resources:
       user_data: |
         #!/bin/sh
         echo "test" > /home/centos/file.txt
+        sudo sh -c 'echo "nameserver 8.8.8.8" > /etc/resolv.conf'
+        sudo yum -y update
+        sudo yum -y install git docker
+        sudo easy_install pip
+        sudo pip install docker-compose
+        sudo dockerd &
+        git clone https://github.com/Mean-Street/cloud_native_app /home/centos/cloud_native_app
+        sudo ln -s /usr/bin/docker-current /usr/bin/docker-runc
+        sudo docker-compose -f cloud_native_app/docker-compose.yml up
       user_data_format: RAW
 
   association_1:
@@ -83,9 +92,6 @@ resources:
       server_id: { get_resource: instance_1 }
 
 outputs:
-  instance_ip:
-    description: The IP address of the deployed instance
-    value: { get_attr: [floating_ip_1, floating_ip_address] }
   ssh_key:
     description: SSH Private Key
     value:
