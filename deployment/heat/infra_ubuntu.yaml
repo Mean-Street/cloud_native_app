@@ -82,7 +82,7 @@ resources:
         sudo pip install docker-compose
         sudo systemctl start docker
         git clone https://github.com/Mean-Street/cloud_native_app /home/ubuntu/cloud_native_app
-        sudo docker-compose -f cloud_native_app/docker-compose.yml up
+        sudo docker-compose -f /home/ubuntu/cloud_native_app/docker-compose.yml up
       user_data_format: RAW
 
   association_1:
