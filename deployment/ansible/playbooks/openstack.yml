@@ -7,15 +7,19 @@
   tasks:
   - name: set locale
     shell: echo "LANG=en_US.utf-8" > /etc/environment; echo "LC_ALL=en_US.utf-8" >> /etc/environment
+    become: true
 
   - name: install the RPM packages to set up the OpenStack repository
     yum: name=centos-release-openstack-pike state=latest
+    become: true
 
   - name: upgrade all packages
     yum: name=* state=latest
+    become: true
 
   - name: install packstack
     yum: name=openstack-packstack state=latest
+    become: true
 
   - name: gen packstack answer file
     shell: packstack --gen-answer-file=ensimag-packstack.txt
