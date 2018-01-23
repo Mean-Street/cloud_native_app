@@ -75,10 +75,12 @@ resources:
         #!/bin/sh
         sudo sh -c 'echo "nameserver 8.8.8.8" > /etc/resolv.conf'
         sudo yum -y update
-        sudo yum -y install git docker
+        sudo yum install -y yum-utils device-mapper-persistent-data lvm2
+        sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+        sudo yum -y install git docker-ce
         sudo easy_install pip
         sudo pip install docker-compose
-        sudo dockerd &
+        sudo systemctl start docker
         git clone https://github.com/Mean-Street/cloud_native_app /home/centos/cloud_native_app
         sudo ln -s /usr/bin/docker-current /usr/bin/docker-runc
         sudo docker-compose -f cloud_native_app/docker-compose.yml up
