@@ -1,0 +1,14 @@
+# https://www.rdoproject.org/install/packstack/
+- hosts: openstack
+  tasks:
+  - name: set locale
+    shell: echo "LANG=en_US.utf-8" > /etc/environment; echo "LC_ALL=en_US.utf-8" >> /etc/environment
+
+  - name: install the RPM packages to set up the OpenStack repository
+    yum: name=centos-release-openstack-pike state=latest
+
+  - name: upgrade all packages
+    yum: name=* state=latest
+
+  - name: install packstack
+    yum: name=openstack-packstack state=latest
