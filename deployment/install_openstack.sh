@@ -1,3 +1,3 @@
 #!/bin/sh
 
-ansible-playbook -e 'host_key_checking=False' playbooks/openstack.yml
+ansible-playbook -i ansible/hosts -e 'host_key_checking=False' ansible/playbooks/openstack.yml
