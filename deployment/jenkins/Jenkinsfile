@@ -1,21 +1,33 @@
 pipeline {
 	agent any
 		stages {
+			stage('Debug') {
+				when { expression { "dev" == "master" } }
+			}
+			steps {
+				echo 'LOLILOL'
+			}
+
+
 			stage('Test') {
-				when { expression { allOf {
-					env.CHANGE_ID;
-					env.BRANCH_NAME == "dev"
-				}}}
+				when { allOf {
+					branch 'dev'
+					expression {env.CHANGE_ID}
+				}}
 				steps {
+					sh 'printenv'
 					echo 'Pull Request'
 				}
 			}
+
+
 			stage('Deploy') {
-				when { expression { allOf {
-					not { env.CHANGE_ID };
-					env.BRANCH_NAME == "master"
-				}}}
+				when { allOf {
+					branch 'master'
+					not { expression { env.CHANGE_ID } }
+				}}
 				steps {
+					sh 'printenv'
 					echo 'Push'
 				}
 			}
