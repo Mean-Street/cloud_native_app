@@ -11,8 +11,10 @@ $( document ).ready(function() {
 	if (id=='' || id==null){
         var html = '<div id=provide>';
         html += '<h1>Please provide a user id !</h1>';
-        html += '<p><input type="text" id="submitinput" value="1"></p>';
-        html += '<p><button class="btn btn-primary" id="submitid" onClick="provideid()">Submit</button></p>';
+	html += '<form method="GET">';
+        html += '<p><input type="text" id="id" name="id" value="1"></p>';
+        html += '<p><input type="submit" class="btn btn-primary" id="submitid"></p>';
+	html += '</form>';
         html += '</div>';
 		$("#content").html(html);
 		$("body").css({"opacity":"100"});
@@ -37,7 +39,7 @@ function provideid()
 console.log($('#submitinput').val())
 if ($("#submitinput").val()){
     location.href += '?id=' + $("#submitinput").val();
-    location.replace();
+    // location.replace(location.href);
     }
 
 }
