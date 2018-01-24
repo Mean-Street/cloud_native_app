@@ -1,0 +1,4 @@
+- hosts: openstack
+  tasks:
+  - name: run packstack
+    shell: packstack --answer-file=ensimag-packstack.txt
