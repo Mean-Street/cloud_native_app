@@ -10,6 +10,9 @@ sudo ./install_ansible.sh
 
 ```
 sudo ./install_jenkins.sh
+sudo visudo
+# Append at the end of the file:
+# jenkins ALL=(ALL) NOPASSWD: ALL
 ```
 
 ## Install OpenStack
