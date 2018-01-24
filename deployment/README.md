@@ -14,10 +14,23 @@ sudo ./install_jenkins.sh
 
 ## Install OpenStack
 
-* Set password in `ansible/group_vars/openstack`
 * Customize vars in `ansible/playbooks/openstack.yml`
 
 ```
 sudo ./install_openstack.sh
+```
+
+To run packstack on a machine A (here, the controller), this machine
+must be able to connect to the controller and to the compute through ssh without password. Packstack
+uses the key `~/.ssh/id_rsa`. Make sure the following commands work and do not ask any password:
+
+```
+ssh root@controller_ip
+ssh root@compute_ip
+```
+
+Then, on this machine:
+
+```
 sudo ./run_packstack.sh
 ```
