@@ -2,15 +2,14 @@
   vars:
     jenkins_hostname: localhost
     jenkins_http_port: 8080
-    jenkins_plugins: ["github", "github-issues"]
-    pip_install_packages: ["jenkins-job-builder"]
+    jenkins_plugins: ["github", "github-issues", "github-branch-source", "workflow-aggregator"]
   tasks:
     - name: install docker compose
       pip:
         name: docker-compose
       become: True
     - name: jenkins_jobs_create
-      shell: jenkins-jobs --conf ../../jenkins/jenkins_jobs.ini update ../../jenkins/github.yml
+      shell: cp -p -r ~/cloud_native_app/deployment/jenkins/jobs/github_multibranch_pipeline /var/lib/jenkins/jobs/github_multibranch_pipeline
       become: true
   roles:
     - role: geerlingguy.pip

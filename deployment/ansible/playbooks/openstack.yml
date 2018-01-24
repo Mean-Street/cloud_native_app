@@ -1,9 +1,10 @@
 # https://www.rdoproject.org/install/packstack/
 - hosts: openstack
   vars:
-    CONTROLLER_HOST: 10.11.51.142
-    COMPUTE_HOSTS: 10.11.51.143
-    NETWORK_HOSTS: 10.11.51.142
+    #CONTROLLER_HOST: 10.11.51.142
+    #COMPUTE_HOSTS: 10.11.51.143
+    CONTROLLER_HOST: 10.11.53.23
+    COMPUTE_HOSTS: 10.11.53.23
   tasks:
   - name: set locale
     shell: echo "LANG=en_US.utf-8" > /etc/environment; echo "LC_ALL=en_US.utf-8" >> /etc/environment
@@ -40,4 +41,4 @@
       - { key: 'CONFIG_HEAT_INSTALL', value: 'y'}
       - { key: 'CONFIG_CONTROLLER_HOST', value: '{{ CONTROLLER_HOST }}'}
       - { key: 'CONFIG_COMPUTE_HOSTS', value: '{{ COMPUTE_HOSTS }}'}
-      - { key: 'CONFIG_NETWORK_HOSTS', value: '{{ NETWORK_HOSTS }}'}
+      - { key: 'CONFIG_NETWORK_HOSTS', value: '{{ CONTROLLER_HOST }}'}
