@@ -3,9 +3,9 @@ pipeline {
 		stages {
 			stage('Debug') {
 				when { expression { "dev" == "master" } }
-			}
-			steps {
-				echo 'LOLILOL'
+				steps {
+					echo 'LOLILOL'
+				}
 			}
 
 
