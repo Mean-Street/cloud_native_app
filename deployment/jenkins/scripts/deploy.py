@@ -1,3 +1,5 @@
 #! /usr/bin/python3
 
-print("DEPLOY")
+if __name__ == "__main__":
+    from slack import notify_deployment
+    notify_deployment()
