@@ -1,35 +1,13 @@
 pipeline {
 	agent any
-		stages {
-			stage('Debug') {
-				when { expression { "dev" == "dev" } }
-				steps {
-					echo 'LOLILOL'
-				}
-			}
-
-
-			stage('Test') {
-				when { allOf {
-					branch 'dev'
-					/* expression {env.CHANGE_ID} */
-				}}
-				steps {
-					sh 'printenv'
-					echo 'Pull Request'
-				}
-			}
-
-
-			stage('Deploy') {
-				when { allOf {
-					branch 'master'
-					/* not { expression { env.CHANGE_ID } } */
-				}}
-				steps {
-					sh 'printenv'
-					echo 'Push'
-				}
-			}
+	stages {
+		stage('Test') {
+			when {branch 'dev'}
+			steps {sh './deployment/jenkins/scripts/test.py'}
 		}
+		stage('Deploy') {
+			when {branch 'master'}
+			steps {sh './deployment/jenkins/scripts/deploy.py'}
+		}
+	}
 }
