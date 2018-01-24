@@ -2,7 +2,7 @@ pipeline {
 	agent any
 		stages {
 			stage('Debug') {
-				when { expression { "dev" == "master" } }
+				when { expression { "dev" == "dev" } }
 				steps {
 					echo 'LOLILOL'
 				}
@@ -12,7 +12,7 @@ pipeline {
 			stage('Test') {
 				when { allOf {
 					branch 'dev'
-					expression {env.CHANGE_ID}
+					/* expression {env.CHANGE_ID} */
 				}}
 				steps {
 					sh 'printenv'
@@ -24,7 +24,7 @@ pipeline {
 			stage('Deploy') {
 				when { allOf {
 					branch 'master'
-					not { expression { env.CHANGE_ID } }
+					/* not { expression { env.CHANGE_ID } } */
 				}}
 				steps {
 					sh 'printenv'
