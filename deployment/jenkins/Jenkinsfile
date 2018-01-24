@@ -3,14 +3,14 @@ pipeline {
 	stages {
 		stage('Build') {
 			when { branch 'dev' }
-			steps { docker-compose build }
+			steps { sh 'docker-compose build' }
 		}
 		stage('Test') {
 			when { branch 'dev' }
 			steps {
-                docker-compose up -d
+                sh 'docker-compose up -d'
                 sh './deployment/jenkins/scripts/test.py'
-                docker-compose stop
+                sh 'docker-compose stop'
             }
 		}
 		stage('Deploy') {
