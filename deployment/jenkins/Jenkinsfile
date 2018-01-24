@@ -2,14 +2,16 @@ pipeline {
 	agent any
 	stages {
 		stage('Test') {
-			when {branch 'dev'}
+			when { branch 'dev' }
 			steps {
-				sh 'printenv'
-				sh './deployment/jenkins/scripts/test.py'}
+                sh 'sudo docker-compose up -d --build'
+                sh './deployment/jenkins/scripts/test.py'
+                sh 'sudo docker-compose down'
+            }
 		}
 		stage('Deploy') {
-			when {branch 'master'}
-			steps {sh './deployment/jenkins/scripts/deploy.py'}
+			when { branch 'master' }
+			steps { sh './deployment/jenkins/scripts/deploy.py' }
 		}
 	}
 }
