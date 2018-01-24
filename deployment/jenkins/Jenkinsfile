@@ -1,16 +1,12 @@
 pipeline {
 	agent any
 	stages {
-		stage('Build') {
-			when { branch 'dev' }
-			steps { sh 'docker-compose build' }
-		}
 		stage('Test') {
 			when { branch 'dev' }
 			steps {
-                sh 'docker-compose up -d'
+                sh 'sudo docker-compose up -d --build'
                 sh './deployment/jenkins/scripts/test.py'
-                sh 'docker-compose stop'
+                sh 'sudo docker-compose down'
             }
 		}
 		stage('Deploy') {
