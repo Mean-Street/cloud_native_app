@@ -88,7 +88,7 @@ while 1:
         print("Waiting rabbitmq server for 10 more seconds.")
         time.sleep(10)
         timeout += 10
-        if timeout >= 30:
+        if timeout >= 60:
             print('ERROR: Rabbitmq is not available !')
             sys.exit(1)
 
