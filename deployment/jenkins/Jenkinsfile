@@ -4,8 +4,13 @@ pipeline {
 			stage('Build') {
 				steps {
 					echo 'Building..'
-					sh 'printenv'
-					sh 'pwd'
+					if (env.CHANGE_ID && env.BRANCH_NAME == "dev") {
+						echo 'PR'
+					} else if (env.BRANCH_NAME == "master") {
+						echo 'Merge'
+					} else {
+						echo 'WTF'
+					}
 					sh './deployment/jenkins/scripts/build.py'
 				}
 			}
