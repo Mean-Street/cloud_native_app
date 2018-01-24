@@ -9,7 +9,7 @@
         name: docker-compose
       become: True
     - name: jenkins_jobs_create
-      shell: cp -p -r ~/cloud_native_app/deployment/jenkins/jobs/github_multibranch_pipeline /var/lib/jenkins/jobs/github_multibranch_pipeline
+      shell: rm -rf /var/lib/jenkins/jobs/github_multibranch_pipeline; cp -p -r ~/cloud_native_app/deployment/jenkins/jobs/github_multibranch_pipeline /var/lib/jenkins/jobs/github_multibranch_pipeline; service jenkins restart
       become: true
   roles:
     - role: geerlingguy.pip
