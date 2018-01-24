@@ -3,9 +3,7 @@ pipeline {
 	stages {
 		stage('Test') {
 			when {branch 'dev'}
-			steps {
-				sh 'printenv'
-				sh './deployment/jenkins/scripts/test.py'}
+			steps {sh './deployment/jenkins/scripts/test.py'}
 		}
 		stage('Deploy') {
 			when {branch 'master'}
