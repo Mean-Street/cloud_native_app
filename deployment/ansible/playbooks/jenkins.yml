@@ -5,6 +5,10 @@
     jenkins_plugins: ["github", "github-issues"]
     pip_install_packages: ["jenkins-job-builder"]
   tasks:
+    - name: install docker compose
+      pip:
+        name: docker-compose
+      become: True
     - name: jenkins_jobs_create
       shell: jenkins-jobs --conf ../../jenkins/jenkins_jobs.ini update ../../jenkins/github.yml
       become: true
