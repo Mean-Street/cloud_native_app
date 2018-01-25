@@ -1,7 +1,6 @@
 #!/bin/bash
 
-# To be defined as env var
-# CONTROLLER_IP=$1
+CONTROLLER_IP="10.11.51.142"
 CONTROLLER_PRIV_KEY=~/controller.pem
 
 function cmd {
