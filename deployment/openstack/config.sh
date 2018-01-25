@@ -21,9 +21,10 @@ KEY_NAME=server
 PRIV_KEY_PATH=~/server.pem
 
 # Test instance
-TEST_FIXED_IP="192.168.0.17"
 TEST_FLOATING_IP="10.11.54.61"
 TEST_NAME=testinstance
 
 # Prod instance
 PROD_FLOATING_IP="10.11.54.63"
+PROD_OLD_NAME="oldprodinstance"
+PROD_NAME="prodinstance"
