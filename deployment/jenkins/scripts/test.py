@@ -11,5 +11,5 @@ if __name__ == "__main__":
     config_file = "~/cloud_native_app/deployment/openstack/config.sh"
     test_file = "~/cloud_native_app/tests/run_tests.py"
 
-    res = sp.call([". " + config_file + "; ssh -i $CONTROLLER_PRIV_KEY root@$CONTROLLER_IP python3 " + test_file], shell=True)
+    res = sp.call([". " + config_file + "; ssh -i $PRIV_KEY_PATH $SSH_USER@$TEST_FLOATING_IP python3 " + test_file], shell=True)
     sys.exit(res)
