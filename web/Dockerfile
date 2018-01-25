@@ -11,6 +11,7 @@ COPY templates/cna.conf.docker /etc/apache2/sites-available/cna.conf
 COPY js/config.js /var/www/html/js/config.js
 # Remove old pid file to avoid trouble
 RUN /bin/bash -c 'rm -f /var/run/apache2/apache2.pid'
+RUN /bin/bash -c 'rm -f /run/apache2/apache2.pid'
 
 RUN chown -R www-data:www-data /var/www/html
 RUN /usr/sbin/a2dissite 000-default
