@@ -37,3 +37,8 @@ Then, on this machine:
 ```
 sudo ./run_packstack.sh
 ```
+
+```
+cd openstack
+export CONTROLLER_IP=10.11.51.142; ./configure.sh
+```
