@@ -13,6 +13,8 @@ services:
                 aliases:
                     - rabbit
     redis:
+        ports:
+            - "6379:6379"
         image:
             redis
         networks:
@@ -22,6 +24,8 @@ services:
     db:
         build:
             context: db
+        ports:
+            - "3306:3306"
         environment:
           - MYSQL_ROOT_PASSWORD=toto
           - MYSQL_DATABASE=prestashop
@@ -46,6 +50,8 @@ services:
     i:
         build:
             context: microservices/i
+        ports:
+            - "8080:8080"
         links:
             - db
         networks:
@@ -55,6 +61,8 @@ services:
     s:
         build:
             context: microservices/s
+        ports:
+            - "8081:8081"
         links:
             - redis
         networks:
@@ -64,6 +72,8 @@ services:
     b:
         build:
             context: microservices/b
+        ports:
+            - "8082:8082"
         links:
             - w
             - rabbit
@@ -74,6 +84,8 @@ services:
     p:
         build:
             context: microservices/p
+        ports:
+            - "8083:8083"
         networks:
             cnalan:
               aliases:
@@ -81,6 +93,8 @@ services:
     w:
         build:
             context: microservices/w
+        ports:
+            - "8090:8090"
         networks:
             cnalan:
               aliases:
