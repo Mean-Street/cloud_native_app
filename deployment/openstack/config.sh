@@ -1,6 +1,6 @@
 #!/bin/bash
 
-CONTROLLER_IP="10.11.51.142"
+CONTROLLER_IP=10.11.51.142
 CONTROLLER_PRIV_KEY=~/controller.pem
 
 function cmd {
@@ -19,6 +19,7 @@ PRIV_NETWORK="9ed0ebaa-3b02-4559-92e9-c99b06f51bc1"
 KEY_NAME=server
 PRIV_KEY_PATH=~/server.pem
 GLOBAL_SECURITY_GROUP=global
+SSH_USER=ubuntu
 
 # Test instance
 TEST_FLOATING_IP="10.11.54.61"
