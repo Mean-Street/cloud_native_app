@@ -5,7 +5,10 @@
 CONTROLLER_PRIV_KEY=~/controller.pem
 
 function cmd {
-    echo $1
+    # In case where we want to read the crude ssh output
+    if [ -z "$2" ]; then
+        echo $1
+    fi
     ssh -i "$CONTROLLER_PRIV_KEY" root@$CONTROLLER_IP ". ./config_files/keystonerc_admin; $1"
 }
 
@@ -15,11 +18,12 @@ FLAVOR_ID="m1.small"
 PUB_NETWORK="public"
 PRIV_NETWORK="9ed0ebaa-3b02-4559-92e9-c99b06f51bc1"
 KEY_NAME=server
-PUB_KEY_PATH=~/server.pub
+PRIV_KEY_PATH=~/server.pem
 
 # Test instance
 TEST_FIXED_IP="192.168.0.17"
 TEST_FLOATING_IP="10.11.54.61"
+TEST_NAME=testinstance
 
 # Prod instance
 PROD_FLOATING_IP="10.11.54.63"
