@@ -1,5 +1,20 @@
 heat_template_version: 2013-05-23
-description: Template to deploy a test stack
+
+parameters:
+  private_network_param:
+    type: string
+  public_network_param:
+    type: string
+  global_security_group_param:
+    type: string
+  prod_security_group_param:
+    type: string
+  test_floating_ip_param:
+    type: string
+  prod_floating_ip_param:
+    type: string
+  ssh_key_param:
+    type: string
 
 # declaration of template resources
 resources:
@@ -7,7 +22,7 @@ resources:
   private_network:
     type: OS::Neutron::Net
     properties:
-      name: private
+      name: { get_param: private_network_param }
 
   # Creation of a subnet network on the private network
   private_subnet:
@@ -25,7 +40,7 @@ resources:
   router:
     type: OS::Neutron::Router
     properties:
-      external_gateway_info: { network: public }    # public network already created
+      external_gateway_info: { network: {get_param: public_network_param} }    # public network already created
 
   # Creation of an interface between the router and the private network
   router-interface:
@@ -38,13 +53,14 @@ resources:
   key-pair:
     type: OS::Nova::KeyPair
     properties:
-      name: ssh_orchestration_key
+      name: { get_param: ssh_key_param }
       save_private_key: True
 
   # Security groups
   global_security_group:
     type: OS::Neutron::SecurityGroup
     properties:
+      name: { get_param: global_security_group_param }
       rules:
         - protocol: icmp
           remote_ip_prefix: 0.0.0.0/0
@@ -56,6 +72,7 @@ resources:
   prod_security_group:
     type: OS::Neutron::SecurityGroup
     properties:
+      name: { get_param: prod_security_group_param }
       rules:
         - protocol: tcp
           remote_ip_prefix: 0.0.0.0/0
@@ -66,7 +83,23 @@ resources:
           port_range_min: 443
           port_range_max: 443
 
+  # Floating ips
+  test_floating_ip:
+    type: OS::Neutron::FloatingIP
+    properties:
+      floating_ip_address: { get_param: test_floating_ip_param }
+      floating_network: { get_param: public_network_param }
+
+  prod_floating_ip:
+    type: OS::Neutron::FloatingIP
+    properties:
+      floating_ip_address: { get_param: prod_floating_ip_param }
+      floating_network: { get_param: public_network_param }
+
 outputs:
   ssh_key:
     value:
       get_attr: [key-pair, private_key]
+  private_network:
+    value:
+      get_attr: [private_network, name]

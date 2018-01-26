@@ -17,10 +17,10 @@ STACK_NAME=cloud_native_app_stack
 IMAGE_ID="Ubuntu"
 FLAVOR_ID="m1.small"
 PUB_NETWORK="public"
-PRIV_NETWORK="9ed0ebaa-3b02-4559-92e9-c99b06f51bc1"
+PRIV_NETWORK="private"
 KEY_NAME=server
 PRIV_KEY_PATH=~/server.pem
-GLOBAL_SECURITY_GROUP=global
+GLOBAL_SECURITY_GROUP=global_security_group
 SSH_USER=ubuntu
 
 # Test instance
@@ -31,4 +31,4 @@ TEST_NAME=testinstance
 PROD_FLOATING_IP="10.11.54.63"
 PROD_OLD_NAME="oldprodinstance"
 PROD_NAME="prodinstance"
-PROD_SECURITY_GROUP=prod
+PROD_SECURITY_GROUP=prod_security_group
