@@ -3,7 +3,13 @@
 . ./config.sh
 
 # Add Ubuntu image
-# TODO
+curl -O http://cloud-images.ubuntu.com/xenial/current/xenial-server-cloudimg-amd64-disk1.img
+glance image-create --name "Ubuntu" --disk-format qcow2 --container-format bare --visibility public --file xenial-server-cloudimg-amd64-disk1
+rm -f http://cloud-images.ubuntu.com/xenial/current/xenial-server-cloudimg-amd64-disk1.img
+
+# Create public network
+neutron net-create public --router:external --provider:network_type vlan --provider:physical_network extnet --provider:segmentation_id 2232
+neutron subnet-create --name public-subnet --enable_dhcp=False --allocation-pool=start=10.11.54.50,end=10.11.54.69 --gateway=10.11.54.1 public 10.11.54.1/24
 
 # Create stack
 scp -i $CONTROLLER_PRIV_KEY $HEAT_TEMPLATE root@$CONTROLLER_IP:~/$HEAT_TEMPLATE
