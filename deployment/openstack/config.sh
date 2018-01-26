@@ -12,6 +12,8 @@ function cmd {
 }
 
 # Global
+HEAT_TEMPLATE=heat.yml
+STACK_NAME=cloud_native_app_stack
 IMAGE_ID="Ubuntu"
 FLAVOR_ID="m1.small"
 PUB_NETWORK="public"

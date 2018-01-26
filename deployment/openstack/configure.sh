@@ -2,6 +2,26 @@
 
 . ./config.sh
 
+# Add Ubuntu image
+# TODO
+
+# Create stack
+scp -i $CONTROLLER_PRIV_KEY $HEAT_TEMPLATE root@$CONTROLLER_IP:~/$HEAT_TEMPLATE
+cmd "openstack stack create -t $HEAT_TEMPLATE $STACK_NAME"
+cmd "openstack stack update -t $HEAT_TEMPLATE $STACK_NAME"
+
+. ./get_private_key.sh
+
+
+
+
+
+
+
+
+# TODO: to be removed
+exit 0
+
 # Key pair
 cmd "openstack keypair delete $KEY_NAME"
 rm -f $PRIV_KEY_PATH
