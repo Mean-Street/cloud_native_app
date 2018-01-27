@@ -1,7 +1,8 @@
 #!/bin/bash
 
+CONFIG_DIR=/opt/config
 CONTROLLER_IP=10.11.51.142
-CONTROLLER_PRIV_KEY=~/controller.pem
+CONTROLLER_PRIV_KEY="$CONFIG_DIR/controller.pem"
 
 function cmd {
     # In case where we want to read the crude ssh output
@@ -19,7 +20,7 @@ FLAVOR_ID="m1.small"
 PUB_NETWORK="public"
 PRIV_NETWORK="private"
 KEY_NAME=server
-PRIV_KEY_PATH=~/server.pem
+PRIV_KEY_PATH="$CONFIG_DIR/server.pem"
 GLOBAL_SECURITY_GROUP=global_security_group
 SSH_USER=ubuntu
 

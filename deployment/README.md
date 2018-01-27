@@ -1,18 +1,17 @@
 On the bastion:
 
-## Install Ansible
+## Install bastion
 
 ```
 sudo ./install_ansible.sh
-```
 
-## Install Jenkins
-
-```
 sudo ./install_jenkins.sh
+# TODO: do it in the playbook
 sudo visudo
 # Append at the end of the file:
 # jenkins ALL=(ALL) NOPASSWD: ALL
+
+sudo ./configure.sh
 ```
 
 ## Install OpenStack
