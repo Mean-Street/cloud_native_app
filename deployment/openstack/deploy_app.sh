@@ -1,12 +1,18 @@
 #!/bin/sh
 
 IP=$1
-KEY_PAIR=$2
 
 . ./config.sh
 
-ssh -i $KEY_PAIR $SSH_USER@$IP ls
-ssh -i $KEY_PAIR $SSH_USER@$IP touch test
-ssh -i $KEY_PAIR $SSH_USER@$IP ls
-ssh -i $KEY_PAIR $SSH_USER@$IP rm test
-ssh -i $KEY_PAIR $SSH_USER@$IP ls
+cmd_instance "sudo sh -c 'echo \"nameserver 8.8.8.8\" > /etc/resolv.conf'" $IP
+cmd_instance "sudo sh -c 'echo \"LANG=en_US.utf-8\" > /etc/environment'" $IP
+cmd_instance "sudo sh -c 'echo \"LC_ALL=en_US.utf-8\" >> /etc/environment'" $IP
+
+cmd_instance "sudo apt-get -y update" $IP
+cmd_instance "sudo apt-get -y install git docker.io python-pip" $IP
+cmd_instance "sudo pip install --upgrade pip" $IP
+cmd_instance "sudo pip install docker-compose" $IP
+
+cmd_instance "sudo systemctl start docker" $IP
+cmd_instance "git clone https://github.com/Mean-Street/cloud_native_app /home/ubuntu/cloud_native_app" $IP
+cmd_instance "sudo docker-compose -f /home/ubuntu/cloud_native_app/docker-compose.yml --build up" $IP
