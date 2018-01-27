@@ -2,7 +2,7 @@ import os
 from slackclient import SlackClient
 
 with open(os.path.join(os.environ["CONFIG_DIR"], "slack_token.txt")) as f:
-    slack_token = f.read()
+    slack_token = f.read().strip()
 sc = SlackClient(slack_token)
 
 
