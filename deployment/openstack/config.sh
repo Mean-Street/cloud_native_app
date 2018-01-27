@@ -9,7 +9,7 @@ function cmd {
     if [ -z "$2" ]; then
         echo $1
     fi
-    ssh -i "$CONTROLLER_PRIV_KEY" root@$CONTROLLER_IP ". ./config_files/keystonerc_admin; $1"
+    ssh -o StrictHostKeyChecking=no -i "$CONTROLLER_PRIV_KEY" root@$CONTROLLER_IP ". ./config_files/keystonerc_admin; $1"
 }
 
 # Global
