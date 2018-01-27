@@ -4,12 +4,12 @@ pipeline {
 		stage('Test') {
 			when { branch 'dev' }
 			steps {
-                sh './deployment/jenkins/scripts/test.py'
+                sh '. ./deployment/openstack/config.sh; ./deployment/jenkins/scripts/test.py'
             }
 		}
 		stage('Deploy') {
 			when { branch 'master' }
-			steps { sh './deployment/jenkins/scripts/deploy.py' }
+			steps { sh '. ./deployment/openstack/config.sh; ./deployment/jenkins/scripts/deploy.py' }
 		}
 	}
 }

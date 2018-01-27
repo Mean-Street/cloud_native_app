@@ -1,8 +1,8 @@
 #!/bin/bash
 
-CONFIG_DIR=/opt/config
-CONTROLLER_IP=10.11.51.142
-CONTROLLER_PRIV_KEY="$CONFIG_DIR/controller.pem"
+export CONFIG_DIR=/opt/config
+export CONTROLLER_IP=10.11.51.142
+export CONTROLLER_PRIV_KEY="$CONFIG_DIR/controller.pem"
 
 function cmd {
     # In case where we want to read the crude ssh output
@@ -13,23 +13,23 @@ function cmd {
 }
 
 # Global
-HEAT_TEMPLATE=heat.yml
-STACK_NAME=cloud_native_app_stack
-IMAGE_ID="Ubuntu"
-FLAVOR_ID="m1.small"
-PUB_NETWORK="public"
-PRIV_NETWORK="private"
-KEY_NAME=server
-PRIV_KEY_PATH="$CONFIG_DIR/server.pem"
-GLOBAL_SECURITY_GROUP=global_security_group
-SSH_USER=ubuntu
+export HEAT_TEMPLATE=heat.yml
+export STACK_NAME=cloud_native_app_stack
+export IMAGE_ID="Ubuntu"
+export FLAVOR_ID="m1.small"
+export PUB_NETWORK="public"
+export PRIV_NETWORK="private"
+export KEY_NAME=server
+export PRIV_KEY_PATH="$CONFIG_DIR/server.pem"
+export GLOBAL_SECURITY_GROUP=global_security_group
+export SSH_USER=ubuntu
 
 # Test instance
-TEST_FLOATING_IP="10.11.54.61"
-TEST_NAME=testinstance
+export TEST_FLOATING_IP="10.11.54.61"
+export TEST_NAME=testinstance
 
 # Prod instance
-PROD_FLOATING_IP="10.11.54.63"
-PROD_OLD_NAME="oldprodinstance"
-PROD_NAME="prodinstance"
-PROD_SECURITY_GROUP=prod_security_group
+export PROD_FLOATING_IP="10.11.54.63"
+export PROD_OLD_NAME="oldprodinstance"
+export PROD_NAME="prodinstance"
+export PROD_SECURITY_GROUP=prod_security_group
