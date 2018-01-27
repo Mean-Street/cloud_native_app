@@ -4,9 +4,7 @@ pipeline {
 		stage('Test') {
 			when { branch 'dev' }
 			steps {
-                sh 'sudo docker-compose up -d --build'
                 sh './deployment/jenkins/scripts/test.py'
-                sh 'sudo docker-compose down'
             }
 		}
 		stage('Deploy') {
