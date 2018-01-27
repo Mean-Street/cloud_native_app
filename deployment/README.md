@@ -14,6 +14,12 @@ sudo visudo
 sudo ./configure.sh
 ```
 
+## Plug Jenkins to Github
+
+* On GitHub: add a webhook at `http://labossi.hpintelco.net:8083/github-webhook/` on push and pull-request events
+* Go to [http://10.11.53.27:8080/job/github_multibranch_pipeline/credentials/](http://10.11.53.27:8080/job/github_multibranch_pipeline/credentials/) and add credentials to github_multibranch_pipeline
+* Go to [http://10.11.53.27:8080/job/github_multibranch_pipeline/configure](http://10.11.53.27:8080/job/github_multibranch_pipeline/configure) and select the credentials you've just created ("Branch Sources" section)
+
 ## Install OpenStack
 
 * Customize vars in `ansible/playbooks/openstack.yml`
