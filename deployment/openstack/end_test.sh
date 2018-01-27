@@ -2,4 +2,4 @@
 
 . ./config.sh
 
-cmd "openstack server delete -y $TEST_NAME"
+cmd "openstack server delete --wait $TEST_NAME"
