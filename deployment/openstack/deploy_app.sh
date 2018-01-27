@@ -15,4 +15,4 @@ cmd_instance "sudo pip install docker-compose" $IP
 
 cmd_instance "sudo systemctl start docker" $IP
 cmd_instance "git clone https://github.com/Mean-Street/cloud_native_app /home/ubuntu/cloud_native_app" $IP
-cmd_instance "sudo docker-compose -f /home/ubuntu/cloud_native_app/docker-compose.yml --build up" $IP
+cmd_instance "sudo docker-compose -f /home/ubuntu/cloud_native_app/docker-compose.yml up --build" $IP
