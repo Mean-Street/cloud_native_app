@@ -11,3 +11,6 @@ echo "Wait ${SSH_OPEN_DELAY}s for ssh port to open"
 sleep $SSH_OPEN_DELAY
 
 . ./deploy_app.sh $TEST_FLOATING_IP
+
+# Add test scripts dependencies
+cmd_instance "sudo pip3 install requests" $TEST_FLOATING_IP

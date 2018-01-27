@@ -17,17 +17,12 @@ def deploy():
 
 def test():
     error = 0
-    print("TODO: run tests")
-    # TODO
-    #  error |= sp.call(["./tests/b.sh", "http://localhost", "1", "10"])
+    test_file = os.path.join(DEPLOYMENT_DIR, "..", "tests", "run_tests.py")
 
-    # get environment variables and launch tests/run_tests.py on the controller
-    #config_file = "~/cloud_native_app/deployment/openstack/config.sh"
-    #test_file = "~/cloud_native_app/tests/run_tests.py"
+    p = sp.Popen(("ssh -o StrictHostKeyChecking=no -i $PRIV_KEY_PATH $SSH_USER@$TEST_FLOATING_IP " +
+                  "'python3 -' < " + test_file), shell=True, env=os.environ)
 
-    #res = sp.call([". " + config_file + "; ssh -i $CONTROLLER_PRIV_KEY root@$CONTROLLER_IP python3 " + test_file], shell=True)
-
-    return error
+    return p.wait()
 
 
 def end():
