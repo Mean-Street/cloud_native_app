@@ -13,4 +13,4 @@ git clone https://github.com/Mean-Street/CloudHP $CONFIG_DIR
 chown -R ubuntu $CONFIG_DIR
 chgrp -R $GROUP $CONFIG_DIR
 chmod -R g+rw $CONFIG_DIR
-chmod 400 $CONFIG_DIR/*.pem
+chmod 440 $CONFIG_DIR/*.pem
