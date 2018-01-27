@@ -2,14 +2,14 @@ pipeline {
 	agent any
 	stages {
 		stage('Test') {
-			when {branch 'dev'}
+			when { branch 'dev' }
 			steps {
-				sh 'printenv'
-				sh './deployment/jenkins/scripts/test.py'}
+                sh '. ./deployment/openstack/config.sh; ./deployment/jenkins/scripts/test.py'
+            }
 		}
 		stage('Deploy') {
-			when {branch 'master'}
-			steps {sh './deployment/jenkins/scripts/deploy.py'}
+			when { branch 'master' }
+			steps { sh '. ./deployment/openstack/config.sh; ./deployment/jenkins/scripts/deploy.py' }
 		}
 	}
 }
