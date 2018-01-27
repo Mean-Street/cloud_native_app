@@ -4,6 +4,8 @@ import os
 import sys
 import subprocess as sp
 
+from slack import notify_test_finished
+
 DEPLOYMENT_DIR = os.path.realpath(os.path.join(os.path.dirname(os.path.realpath(__file__)), "..", ".."))
 OPENSTACK_DIR = os.path.join(DEPLOYMENT_DIR, "openstack")
 
@@ -38,5 +40,7 @@ if __name__ == "__main__":
     if not error:
         error |= test()
     error |= end()
+
+    notify_test_finished(error)
 
     sys.exit(error)

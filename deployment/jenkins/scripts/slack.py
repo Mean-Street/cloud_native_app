@@ -12,3 +12,11 @@ def notify_deployment():
       channel="#customer",
       text="The application has been upgraded! :tada:"
     )
+
+
+def notify_test_finished(error):
+    sc.api_call(
+      "chat.postMessage",
+      channel="#dev",
+      text=("The Jenkins checks are finished: " + ("SUCCESS :tada:" if not error else "FAILURE :sens_interdit:"))
+    )
