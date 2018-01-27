@@ -1,7 +1,8 @@
 import os
 from slackclient import SlackClient
 
-slack_token = os.environ["SLACK_API_TOKEN"]
+with open(os.path.join(os.environ["CONFIG_DIR"], "slack_token.txt")) as f:
+    slack_token = f.read()
 sc = SlackClient(slack_token)
 
 
