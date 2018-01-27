@@ -2,7 +2,7 @@
 
 IP=$1
 
-. ./config.sh
+. ./tools.sh
 
 cmd_instance "sudo sh -c 'echo \"nameserver 8.8.8.8\" > /etc/resolv.conf'" $IP
 cmd_instance "sudo sh -c 'echo \"LANG=en_US.utf-8\" > /etc/environment'" $IP

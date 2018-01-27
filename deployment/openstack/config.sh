@@ -4,23 +4,6 @@ export CONFIG_DIR=/opt/config
 export CONTROLLER_IP=10.11.51.142
 export CONTROLLER_PRIV_KEY="$CONFIG_DIR/controller.pem"
 
-function cmd {
-    # In case where we want to read the crude ssh output
-    if [ -z "$2" ]; then
-        echo $1
-    fi
-    ssh -o StrictHostKeyChecking=no -i "$CONTROLLER_PRIV_KEY" root@$CONTROLLER_IP ". ./config_files/keystonerc_admin; $1"
-}
-
-function cmd_instance {
-    # In case where we want to read the crude ssh output
-    if [ -z "$3" ]; then
-        echo $1
-    fi
-    ssh -o StrictHostKeyChecking=no -i "$PRIV_KEY_PATH" $SSH_USER@$2 "$1"
-}
-
-
 # Global
 export HEAT_TEMPLATE=heat.yml
 export STACK_NAME=cloud_native_app_stack

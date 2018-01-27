@@ -1,6 +1,6 @@
 #!/bin/bash
 
-. ./config.sh
+. ./tools.sh
 
 echo "Get private key"
 rm -f $PRIV_KEY_PATH

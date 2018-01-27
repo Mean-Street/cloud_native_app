@@ -1,6 +1,6 @@
 #!/bin/bash
 
-. ./config.sh
+. ./tools.sh
 
 # Add Ubuntu image
 curl -O http://cloud-images.ubuntu.com/xenial/current/xenial-server-cloudimg-amd64-disk1.img
