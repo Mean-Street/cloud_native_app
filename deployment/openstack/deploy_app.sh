@@ -20,10 +20,12 @@ cmd_instance "sudo systemctl start docker" $IP
 cmd_instance "git clone https://github.com/Mean-Street/cloud_native_app" $IP
 
 i=0
-err=0
-while [ $err -eq 0 -a $i -lt $DOCKER_COMPOSE_MAX_REPEAT ]
+err=1
+while [ $err -ne 0 -a $i -lt $DOCKER_COMPOSE_MAX_REPEAT ]
 do
     i=`expr $i + 1`
     cmd_instance "sudo docker-compose -f ./cloud_native_app/docker-compose.yml up -d" $IP
     err=$?
 done
+
+exit $err

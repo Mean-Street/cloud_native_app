@@ -14,5 +14,10 @@ sleep $SSH_OPEN_DELAY
 
 ./deploy_app.sh $TEST_FLOATING_IP
 
+if [ $? -ne 0 ]
+then
+	exit 1
+fi
+
 # Add test scripts dependencies
 cmd_instance "sudo pip3 install requests" $TEST_FLOATING_IP
