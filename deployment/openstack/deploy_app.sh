@@ -27,6 +27,7 @@ do
 	echo "[ $i / $DOCKER_COMPOSE_MAX_REPEAT ]"
     cmd_instance "sudo docker-compose -f ./cloud_native_app/docker-compose.yml up -d" $IP
     err=$?
+	echo "[DEBUG]Result = $err"
 done
 
 exit $err
