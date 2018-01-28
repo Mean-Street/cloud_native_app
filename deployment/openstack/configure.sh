@@ -13,7 +13,7 @@ cmd "neutron subnet-create --name public-subnet --enable_dhcp=False --allocation
 
 # Create stack
 scp -i $CONTROLLER_PRIV_KEY $HEAT_TEMPLATE root@$CONTROLLER_IP:~/$HEAT_TEMPLATE
-stack_args="--parameter 'ssh_key_param=$KEY_NAME;private_network_param=$PRIV_NETWORK;public_network_param=$PUB_NETWORK;global_security_group_param=$GLOBAL_SECURITY_GROUP;prod_security_group_param=$PROD_SECURITY_GROUP;test_floating_ip_param=$TEST_FLOATING_IP;prod_floating_ip_param=$PROD_FLOATING_IP' -t $HEAT_TEMPLATE $STACK_NAME"
+stack_args="--parameter 'ssh_key_param=$KEY_NAME;private_network_param=$PRIV_NETWORK;public_network_param=$PUB_NETWORK;global_security_group_param=$GLOBAL_SECURITY_GROUP;prod_security_group_param=$PROD_SECURITY_GROUP;test_floating_ip_param=$TEST_FLOATING_IP;prod_floating_ip_param=$PROD_FLOATING_IP;prod_tmp_floating_ip=$PROD_TMP_FLOATING_IP' -t $HEAT_TEMPLATE $STACK_NAME"
 cmd "openstack stack delete -y --wait $STACK_NAME"
 cmd "openstack stack create $stack_args"
 
