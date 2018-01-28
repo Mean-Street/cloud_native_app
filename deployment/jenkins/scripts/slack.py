@@ -18,7 +18,7 @@ def notify_deployment_error():
     sc.api_call(
       "chat.postMessage",
       channel="#dev",
-      text=":sens_interdit: URGENT: error deploying the application! :sens_interdit:"
+      text=":no_entry: URGENT: error deploying the application! :no_entry:"
     )
 
 
@@ -26,5 +26,5 @@ def notify_test_finished(error):
     sc.api_call(
       "chat.postMessage",
       channel="#dev",
-      text=("The Jenkins checks are finished: " + ("SUCCESS :tada:" if not error else "FAILURE :sens_interdit:"))
+      text=("The Jenkins checks are finished: " + ("SUCCESS :tada:" if not error else "FAILURE :no_entry:"))
     )
