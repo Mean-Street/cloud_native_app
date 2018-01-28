@@ -24,6 +24,7 @@ err=1
 while [ $err -ne 0 -a $i -lt $DOCKER_COMPOSE_MAX_REPEAT ]
 do
     i=`expr $i + 1`
+	echo "[ $i / $DOCKER_COMPOSE_MAX_REPEAT ]"
     cmd_instance "sudo docker-compose -f ./cloud_native_app/docker-compose.yml up -d" $IP
     err=$?
 done
