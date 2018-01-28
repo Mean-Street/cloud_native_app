@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 IP=$1
 
 . ./tools.sh

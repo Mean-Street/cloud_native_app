@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 . ./tools.sh
 
 cmd "openstack server remove floating ip $PROD_NAME $PROD_TMP_FLOATING_IP"

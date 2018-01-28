@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 . ./tools.sh
 
 . ./end_test.sh # One test machine at a time

@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 . ./tools.sh
 
 cmd "openstack server set --name $PROD_OLD_NAME $PROD_NAME"
