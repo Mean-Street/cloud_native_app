@@ -6,9 +6,9 @@ IP=$1
 
 . ./tools.sh
 
-cmd_instance "sudo sh -c 'echo \"nameserver 8.8.8.8\" > /etc/resolv.conf'" $IP
-cmd_instance "sudo sh -c 'echo \"LANG=en_US.utf-8\" > /etc/environment'" $IP
-cmd_instance "sudo sh -c 'echo \"LC_ALL=en_US.utf-8\" >> /etc/environment'" $IP
+cmd_instance "sudo sh -c 'echo nameserver 8.8.8.8 > /etc/resolv.conf'" $IP
+cmd_instance "sudo sh -c 'echo LANG=en_US.utf-8 > /etc/environment'" $IP
+cmd_instance "sudo sh -c 'echo LC_ALL=en_US.utf-8 >> /etc/environment'" $IP
 
 cmd_instance "sudo apt-get -y update" $IP
 cmd_instance "sudo apt-get -y install git docker.io python3-pip" $IP
