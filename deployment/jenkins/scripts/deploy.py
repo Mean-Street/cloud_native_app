@@ -4,7 +4,7 @@ import os
 import sys
 import subprocess as sp
 
-from slack import notify_deployment
+from slack import notify_deployment, notify_deployment_error
 
 DEPLOYMENT_DIR = os.path.realpath(os.path.join(os.path.dirname(os.path.realpath(__file__)), "..", ".."))
 OPENSTACK_DIR = os.path.join(DEPLOYMENT_DIR, "openstack")
@@ -26,17 +26,22 @@ def switch():
     return sp.call(["./switch_prod.sh"])
 
 
+def error():
+    notify_deployment_error()
+    sys.exit(1)
+
+
 if __name__ == "__main__":
-    error = deploy()
-    if error:
-        sys.exit(error)
+    err = deploy()
+    if err:
+        error()
 
-    error = test()
-    if error:
-        sys.exit(error)
+    err = test()
+    if err:
+        error()
 
-    error = switch()
-    if error:
-        sys.exit(error)
+    err = switch()
+    if err:
+        error()
 
     notify_deployment()
