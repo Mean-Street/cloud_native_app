@@ -18,4 +18,12 @@ cmd_instance "sudo pip3 install docker-compose" $IP
 
 cmd_instance "sudo systemctl start docker" $IP
 cmd_instance "git clone https://github.com/Mean-Street/cloud_native_app" $IP
-cmd_instance "sudo docker-compose -f ./cloud_native_app/docker-compose.yml up -d --build" $IP
+
+i=0
+err=0
+while [ $err -eq 0 -a $i -lt $DOCKER_COMPOSE_MAX_REPEAT ]
+do
+    i=`expr $i + 1`
+    cmd_instance "sudo docker-compose -f ./cloud_native_app/docker-compose.yml up -d" $IP
+    err=$?
+done
