@@ -2,12 +2,14 @@
 
 import os
 import sys
+import time
 import subprocess as sp
 
 from slack import notify_test_finished
 
 DEPLOYMENT_DIR = os.path.realpath(os.path.join(os.path.dirname(os.path.realpath(__file__)), "..", ".."))
 OPENSTACK_DIR = os.path.join(DEPLOYMENT_DIR, "openstack")
+SERVICES_START_DELAY = 20
 
 
 def deploy():
@@ -33,6 +35,8 @@ def end():
 if __name__ == "__main__":
     error = deploy()
     if not error:
+        print("Wait {0}s for services to start".format(SERVICES_START_DELAY))
+        time.sleep(SERVICES_START_DELAY)
         error |= test()
     error |= end()
 

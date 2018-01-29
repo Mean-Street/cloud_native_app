@@ -13,6 +13,11 @@
         name: docker-compose
         executable: pip3
       become: True
+    - name: install requests
+      pip:
+        name: requests
+        executable: pip3
+      become: True
     - name: install slack client
       pip:
         name: slackclient
