@@ -5,7 +5,7 @@ import sys
 import time
 import subprocess as sp
 
-from slack import notify_test_finished
+from slack import notify_end_test, notify_start_test
 
 DEPLOYMENT_DIR = os.path.realpath(os.path.join(os.path.dirname(os.path.realpath(__file__)), "..", ".."))
 OPENSTACK_DIR = os.path.join(DEPLOYMENT_DIR, "openstack")
@@ -33,6 +33,8 @@ def end():
 
 
 if __name__ == "__main__":
+    notify_start_test()
+
     error = deploy()
     if not error:
         print("Wait {0}s for services to start".format(SERVICES_START_DELAY))
@@ -40,6 +42,6 @@ if __name__ == "__main__":
         error |= test()
     error |= end()
 
-    notify_test_finished(error)
+    notify_end_test(error)
 
     sys.exit(error)

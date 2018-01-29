@@ -5,7 +5,7 @@ import sys
 import subprocess as sp
 import requests
 
-from slack import notify_deployment, notify_deployment_error
+from slack import notify_deployment, notify_deployment_error, notify_start_deployment
 
 DEPLOYMENT_DIR = os.path.realpath(os.path.join(os.path.dirname(os.path.realpath(__file__)), "..", ".."))
 OPENSTACK_DIR = os.path.join(DEPLOYMENT_DIR, "openstack")
@@ -16,10 +16,10 @@ def deploy():
     return sp.call(["./deploy_prod.sh"])
 
 
-def test():
+def test(ip):
     error = 0
     try:
-        r = requests.get("http://" + os.environ["PROD_FLOATING_IP"])
+        r = requests.get("http://" + ip)
         assert r.status_code // 200 == 1
     except Exception as e:
         print("ERROR:", e)
@@ -39,16 +39,21 @@ def error():
 
 if __name__ == "__main__":
     # TODO: avoid duplicates old_prod instances (for instance, when the tests failed)
+    notify_start_deployment()
 
     err = deploy()
     if err:
         error()
 
-    err = test()
+    err = test(os.environ["PROD_TMP_FLOATING_IP"])
     if err:
         error()
 
     err = switch()
+    if err:
+        error()
+
+    err = test(os.environ["PROD_FLOATING_IP"])
     if err:
         error()
 
