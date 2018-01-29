@@ -26,7 +26,7 @@ def notify_start_deployment():
     sc.api_call(
         "chat.postMessage",
         channel="#dev",
-        text="The deployment has just started! :rocket:"
+        text="Push detected on master. The application is being deployed... :rocket:"
     )
 
 
@@ -34,15 +34,15 @@ def notify_start_test():
     sc.api_call(
         "chat.postMessage",
         channel="#dev",
-        text="The application is being tested... :zzz:"
+        text="Push detected on dev. The application is being tested... :zzz:"
     )
 
 
 def notify_end_test(error):
     if error:
-        msg = ":no_entry: Jenkins checks response: FAILURE :no_entry:"
+        msg = ":no_entry: Dev branch has been tested: FAILURE :no_entry:"
     else:
-        msg = ":tada: Jenkins checks response: SUCCESS :tada:"
+        msg = ":tada: Dev branch has been tested: SUCCESS :tada:"
     sc.api_call(
         "chat.postMessage",
         channel="#dev",
