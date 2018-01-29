@@ -16,10 +16,10 @@ def deploy():
     return sp.call(["./deploy_prod.sh"])
 
 
-def test():
+def test(ip):
     error = 0
     try:
-        r = requests.get("http://" + os.environ["PROD_FLOATING_IP"])
+        r = requests.get("http://" + ip)
         assert r.status_code // 200 == 1
     except Exception as e:
         print("ERROR:", e)
@@ -44,11 +44,15 @@ if __name__ == "__main__":
     if err:
         error()
 
-    err = test()
+    err = test(os.environ["PROD_TMP_FLOATING_IP"])
     if err:
         error()
 
     err = switch()
+    if err:
+        error()
+
+    err = test(os.environ["PROD_FLOATING_IP"])
     if err:
         error()
 
