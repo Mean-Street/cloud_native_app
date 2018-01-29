@@ -38,6 +38,8 @@ def error():
 
 
 if __name__ == "__main__":
+    # TODO: avoid duplicates old_prod instances (for instance, when the tests failed)
+
     err = deploy()
     if err:
         error()
