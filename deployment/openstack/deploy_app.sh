@@ -4,8 +4,8 @@ IP=$1
 
 . ./tools.sh
 
-./init_instance.sh
-if [$? -ne 0]
+./init_instance.sh $IP
+if [ $? -ne 0 ]
 then
     exit 1
 fi
