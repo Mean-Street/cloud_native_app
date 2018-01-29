@@ -5,7 +5,7 @@ import sys
 import subprocess as sp
 import requests
 
-from slack import notify_deployment, notify_deployment_error
+from slack import notify_deployment, notify_deployment_error, notify_start_deployment
 
 DEPLOYMENT_DIR = os.path.realpath(os.path.join(os.path.dirname(os.path.realpath(__file__)), "..", ".."))
 OPENSTACK_DIR = os.path.join(DEPLOYMENT_DIR, "openstack")
@@ -39,6 +39,7 @@ def error():
 
 if __name__ == "__main__":
     # TODO: avoid duplicates old_prod instances (for instance, when the tests failed)
+    notify_start_deployment()
 
     err = deploy()
     if err:
