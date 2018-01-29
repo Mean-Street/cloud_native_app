@@ -3,6 +3,7 @@
 import os
 import sys
 import subprocess as sp
+import requests
 
 from slack import notify_deployment, notify_deployment_error
 
@@ -17,7 +18,12 @@ def deploy():
 
 def test():
     error = 0
-    print("TODO: make sure the app is deployed")
+    try:
+        r = requests.get("http://" + os.environ["PROD_FLOATING_IP"])
+        assert r.status_code // 200 == 1
+    except Exception as e:
+        print("ERROR:", e)
+        error = 1
     return error
 
 
