@@ -25,6 +25,6 @@ export TEST_NAME=testinstance
 # Prod instance
 export PROD_TMP_FLOATING_IP="10.11.54.63"
 export PROD_FLOATING_IP="10.11.54.54"
-export PROD_OLD_NAME="oldprodinstance"
+export PROD_NEXT_NAME="nextprodinstance"
 export PROD_NAME="prodinstance"
 export PROD_SECURITY_GROUP=prod_security_group

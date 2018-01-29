@@ -22,7 +22,7 @@ def test(ip):
         r = requests.get("http://" + ip)
         assert r.status_code // 200 == 1
     except Exception as e:
-        print("ERROR:", e)
+        print("TEST ERROR:", e)
         error = 1
     return error
 
@@ -45,16 +45,21 @@ if __name__ == "__main__":
     if err:
         error()
 
+    """
+    # ERROR: cannot access prod:80 from bastion, controller or compute
     err = test(os.environ["PROD_TMP_FLOATING_IP"])
     if err:
         error()
+    """
 
     err = switch()
     if err:
         error()
 
+    """
     err = test(os.environ["PROD_FLOATING_IP"])
     if err:
         error()
+    """
 
     notify_deployment()
