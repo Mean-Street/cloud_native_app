@@ -1,33 +1,39 @@
 #! /usr/bin/python3
 
+import sys
 import requests
 
-host = "http://localhost:"
+SUCCESS_MSG = "PASSED"
+FAILURE_MSG = "FAILED"
 
-print("###### Test: rabbitMQ")
-#  r = requests.get(host + "15672" + "/")
+HOST = "http://localhost:"
+PORTS = {
+    "i": 8080,
+    "s": 8081,
+    "b": 8082,
+    "p": 8083,
+    "w": 8090
+}
 
-print("###### Test: redis")
-#  6379
+if __name__ == "__main__":
+    error = 0
+    for service, port in PORTS.items():
+        print("[TEST][SERVICE " + service + "]: ", end="")
+        try:
+            r = requests.get(HOST + str(port) + "/")
+            assert r.status_code // 200 == 1
+            assert r.json()["Service"] == "Microservice " + service
+            print(SUCCESS_MSG)
+        except Exception as e:
+            print(FAILURE_MSG)
+            print(e)
+            error = 1
 
-print("###### Test: db")
-#  3306 
+    sys.exit(error)
 
-print("###### Test: web")
-#  80
-
-print("###### Test: i")
-#  8080
-
-print("###### Test: s")
-#  8081
-
-print("###### Test: b")
-#  8082
-
-print("###### Test: p")
-#  8083
-
-print("###### Test: w")
-#  8090
+# TODO:
+# rabbitMQ 15672
+# redis 6379
+# db 3306 
+# web 80
 

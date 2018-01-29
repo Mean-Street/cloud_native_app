@@ -16,6 +16,7 @@ export PRIV_KEY_PATH="$CONFIG_DIR/server.pem"
 export GLOBAL_SECURITY_GROUP=global_security_group
 export SSH_USER=ubuntu
 export SSH_OPEN_DELAY=50
+export DOCKER_COMPOSE_MAX_REPEAT=10
 
 # Test instance
 export TEST_FLOATING_IP="10.11.54.61"

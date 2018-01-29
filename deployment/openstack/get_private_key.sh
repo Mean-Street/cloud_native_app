@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 . ./tools.sh
 
 echo "Get private key"
