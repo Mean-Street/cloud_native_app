@@ -12,8 +12,4 @@ echo "Wait ${SSH_OPEN_DELAY}s for ssh port to open"
 sleep $SSH_OPEN_DELAY
 
 ./deploy_app.sh $PROD_TMP_FLOATING_IP
-
-if [ $? -ne 0 ]
-then
-	exit 1
-fi
+exit $?
