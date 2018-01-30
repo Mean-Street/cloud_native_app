@@ -12,9 +12,9 @@ err=0
 for i in $(seq $2 $3)
 do
 	curl $1/srvb/user/$i
-    if [ $? -ne 0 ]; then
-        err=1
-    fi
+	if [ $? -ne 0 ]; then
+		err=1
+	fi
 done
 
 exit $err
